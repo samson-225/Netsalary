@@ -1,0 +1,6 @@
+{
+  "name": "Calculadora Salário Líquido Alemanha",
+  "description": "Calculadora de salário líquido na Alemanha, conversão de bruto para líquido com estimativa de impostos e deduções.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
