@@ -170,17 +170,17 @@ export const Comparison = () => {
 
         {/* Results Comparison */}
         {resultA && resultB && (
-          <div className="space-y-12 animate-in fade-in duration-500 border-t border-slate-100 dark:border-slate-800 pt-12">
+          <div className="space-y-12 animate-fade-in border-t border-slate-100 dark:border-slate-800 pt-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-blue-50/50 dark:bg-blue-900/10 p-8 rounded-[2rem] border border-blue-100 dark:border-blue-800/30 flex flex-col items-center text-center shadow-sm relative overflow-hidden">
+              <div className="bg-blue-50/50 dark:bg-blue-900/10 p-6 md:p-8 rounded-[2rem] border border-blue-100 dark:border-blue-800/30 flex flex-col items-center text-center shadow-sm relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500 opacity-5 blur-2xl rounded-full"></div>
                 <span className="text-sm font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-3">Salário Líquido (A)</span>
-                <span className="text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">{formatMoney(resultA.net)}</span>
+                <span className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight break-words">{formatMoney(resultA.net)}</span>
               </div>
-              <div className="bg-purple-50/50 dark:bg-purple-900/10 p-8 rounded-[2rem] border border-purple-100 dark:border-purple-800/30 flex flex-col items-center text-center shadow-sm relative overflow-hidden">
+              <div className="bg-purple-50/50 dark:bg-purple-900/10 p-6 md:p-8 rounded-[2rem] border border-purple-100 dark:border-purple-800/30 flex flex-col items-center text-center shadow-sm relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-32 h-32 bg-purple-500 opacity-5 blur-2xl rounded-full"></div>
                 <span className="text-sm font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400 mb-3">Salário Líquido (B)</span>
-                <span className="text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">{formatMoney(resultB.net)}</span>
+                <span className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight break-words">{formatMoney(resultB.net)}</span>
               </div>
             </div>
 

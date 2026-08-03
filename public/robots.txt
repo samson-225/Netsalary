@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://germannetsalary.vercel.app/sitemap.xml

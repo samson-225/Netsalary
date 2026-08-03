@@ -5,6 +5,8 @@ import { cn } from '../lib/utils';
 import { PaymentPeriod, TaxClass, HealthInsurance, CalculationResult, states, calculateNet } from '../lib/salary';
 import { useAppContext } from '../lib/i18n';
 
+import { DashboardResults } from './DashboardResults';
+
 export const Calculator = () => {
   const { t } = useAppContext();
   const [grossSalary, setGrossSalary] = useState<string>('4000');
@@ -210,116 +212,34 @@ Data: ${new Date().toLocaleDateString()}
       </div>
 
       {/* 3. Área de Resultados */}
-      <div ref={resultsRef} className="w-full max-w-5xl mx-auto mb-20 px-4" id="resultado">
+      <div ref={resultsRef} className="w-full max-w-6xl mx-auto mb-20 px-4" id="resultado">
         {result && (
-          <div className="animate-in fade-in slide-in-from-bottom-8 duration-500">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50">{t('resultTitle')}</h2>
-              <div className="flex gap-3">
-                <button onClick={handleDownload} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-                  <Download className="w-4 h-4" /> PDF / TXT
-                </button>
-              </div>
-            </div>
+          <div className="animate-fade-in-up">
+            <DashboardResults 
+              result={result} 
+              period={period} 
+              onDownload={handleDownload}
+              onShare={handleShare}
+            />
 
-            {/* Resultado Principal em Destaque */}
-            <div className="bg-slate-900 dark:bg-slate-800 rounded-3xl p-8 md:p-12 text-white shadow-2xl mb-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500 opacity-20 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2"></div>
-              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                <div>
-                  <p className="text-blue-300 font-semibold mb-2 uppercase tracking-wider">{t('netSalary')}</p>
-                  <p className="text-5xl md:text-7xl font-extrabold tracking-tight">{formatMoney(result.net)}</p>
-                  <p className="text-slate-400 mt-2 text-lg">Por {period === 'month' ? 'mês' : period === 'year' ? 'ano' : 'hora'} líquido na sua conta</p>
-                </div>
-                <div className="flex flex-col gap-4 w-full md:w-auto">
-                  <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between gap-8 border border-white/10">
-                    <span className="text-slate-300 font-medium">{t('grossSalary')}</span>
-                    <span className="font-bold text-xl">{formatMoney(result.gross)}</span>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between gap-8 border border-white/10">
-                    <span className="text-slate-300 font-medium">{t('totalTax')}</span>
-                    <span className="font-bold text-xl text-red-300">-{formatMoney(result.tax + result.social)}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Cards de Resumo & Gráfico */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              
-              {/* Tabela de Descontos Detalhada */}
-              <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 shadow-sm">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">{t('discountDetails')}</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-600 dark:text-slate-400">{t('incomeTaxLabel')}</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.incomeTax)}</span>
-                  </div>
-                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-600 dark:text-slate-400">{t('chartLabelHealth')}</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.health)}</span>
-                  </div>
-                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-600 dark:text-slate-400">{t('chartLabelPension')}</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.pension)}</span>
-                  </div>
-                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-600 dark:text-slate-400">{t('unemployment')}</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.unemployment)}</span>
-                  </div>
-                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-slate-600 dark:text-slate-400">{t('careIns')}</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.care)}</span>
-                  </div>
-                  <div className="flex justify-between items-center pt-2">
-                    <span className="font-bold text-slate-900 dark:text-slate-100">Total Retido</span>
-                    <span className="font-bold text-red-500">{formatMoney(result.tax + result.social)}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Gráfico Visual */}
-              <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">Distribuição Visual</h3>
-                <div className="flex-1 min-h-[300px] relative">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie data={getChartData()} cx="50%" cy="50%" innerRadius={80} outerRadius={110} paddingAngle={2} dataKey="value" stroke="none">
-                        {getChartData().map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={['#0f172a', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#64748b'][index % 6]} />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value: number) => formatMoney(value)} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                     <span className="text-sm text-slate-500 font-medium">{t('netSalary')}</span>
-                     <span className="text-xl font-bold text-slate-900 dark:text-slate-100">{((result.net / result.gross) * 100).toFixed(1)}%</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            
-            {/* 5. Seção de Confiança (mini FAQ / banners) */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-               <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl">
-                 <ShieldAlert className="w-8 h-8 text-slate-700 dark:text-slate-300 mb-4" />
+            {/* Seção de Confiança */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-6xl mx-auto">
+               <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-200/50 dark:border-slate-700/50">
+                 <ShieldAlert className="w-8 h-8 text-blue-500 mb-4" />
                  <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">Cálculo Transparente</h4>
-                 <p className="text-sm text-slate-600 dark:text-slate-400">Usamos as fórmulas oficiais do Ministério das Finanças da Alemanha para garantir precisão.</p>
+                 <p className="text-sm text-slate-600 dark:text-slate-400">Fórmulas oficiais do Ministério das Finanças da Alemanha para garantir precisão.</p>
                </div>
-               <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl">
-                 <CheckCircle className="w-8 h-8 text-slate-700 dark:text-slate-300 mb-4" />
-                 <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">Atualizado 2024</h4>
+               <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-200/50 dark:border-slate-700/50">
+                 <CheckCircle className="w-8 h-8 text-emerald-500 mb-4" />
+                 <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">Atualizado {new Date().getFullYear()}</h4>
                  <p className="text-sm text-slate-600 dark:text-slate-400">Todas as taxas, limites e subsídios estão atualizados para o ano fiscal vigente.</p>
                </div>
-               <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl">
-                 <Lock className="w-8 h-8 text-slate-700 dark:text-slate-300 mb-4" />
+               <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-200/50 dark:border-slate-700/50">
+                 <Lock className="w-8 h-8 text-indigo-500 mb-4" />
                  <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">100% Privado</h4>
-                 <p className="text-sm text-slate-600 dark:text-slate-400">Seus dados salariais nunca saem do seu navegador. Não salvamos nenhuma informação.</p>
+                 <p className="text-sm text-slate-600 dark:text-slate-400">Seus dados salariais nunca saem do seu dispositivo. Não guardamos informação.</p>
                </div>
             </div>
-
           </div>
         )}
       </div>
