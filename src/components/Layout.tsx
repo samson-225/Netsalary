@@ -56,10 +56,10 @@ export const Layout = () => {
         <div className="h-20 flex items-center px-6">
           <Link to="/" className="flex items-center gap-2">
             <div className="bg-blue-600 p-1.5 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg leading-none">N</span>
+              <span className="text-white font-bold text-lg font-display leading-none">N</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-xl leading-none tracking-tight">NetSalary</span>
+              <span className="font-bold text-xl font-display leading-none tracking-tight">NetSalary</span>
               <span className="text-[10px] text-slate-500 font-medium">Germany</span>
             </div>
           </Link>
@@ -136,10 +136,10 @@ export const Layout = () => {
         <header className="lg:hidden flex items-center justify-between h-16 px-4 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-20">
           <Link to="/" className="flex items-center gap-2">
             <div className="bg-blue-600 p-1.5 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm leading-none">N</span>
+              <span className="text-white font-bold text-sm font-display leading-none">N</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-lg leading-none tracking-tight">NetSalary</span>
+              <span className="font-bold text-lg font-display leading-none tracking-tight">NetSalary</span>
               <span className="text-[9px] text-slate-500 font-medium">Germany</span>
             </div>
           </Link>

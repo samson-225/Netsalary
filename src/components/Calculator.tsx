@@ -101,384 +101,222 @@ Data: ${new Date().toLocaleDateString()}
 
   return (
     <div className="w-full">
-      {/* Hero and Form Section */}
-      <div className="flex flex-col xl:flex-row gap-12 lg:gap-16 items-start mb-16">
-        
-        {/* Left: Hero Text */}
-        <div className="flex-1 max-w-2xl mt-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-semibold text-sm mb-6 border border-blue-100 dark:border-blue-800/50">
-            <span className="text-blue-500">✨</span>
-            100% Gratuito • Preciso • Atualizado para {new Date().getFullYear()}
-          </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-slate-50 mb-6 tracking-tight leading-[1.1]">
-            {t('heroTitle')}
-          </h1>
-          <p className="text-slate-600 dark:text-slate-400 text-lg mb-10 leading-relaxed">
-            {t('heroDesc')}
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-            <div>
-               <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 mb-1">
-                 <ShieldAlert className="w-5 h-5 text-blue-600" /> Seguro
-               </div>
-               <p className="text-sm text-slate-500 dark:text-slate-400">Seus dados estão protegidos</p>
-            </div>
-            <div>
-               <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 mb-1">
-                 <Clock className="w-5 h-5 text-blue-600" /> Rápido
-               </div>
-               <p className="text-sm text-slate-500 dark:text-slate-400">Resultado em segundos</p>
-            </div>
-            <div>
-               <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100 mb-1">
-                 <CheckCircle className="w-5 h-5 text-blue-600" /> Preciso
-               </div>
-               <p className="text-sm text-slate-500 dark:text-slate-400">Cálculos atualizados para 2024</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 max-w-sm">
-            <div className="flex text-amber-400">
-               <Star className="w-5 h-5 fill-current" />
-               <Star className="w-5 h-5 fill-current" />
-               <Star className="w-5 h-5 fill-current" />
-               <Star className="w-5 h-5 fill-current" />
-               <Star className="w-5 h-5 fill-current" />
-            </div>
-            <div className="text-sm">
-              <span className="font-bold text-slate-900 dark:text-slate-100">4.9/5</span>
-              <span className="text-slate-500 dark:text-slate-400 ml-1">Baseado em 2.500+ cálculos</span>
-            </div>
-          </div>
+      {/* 1. Hero Section Forte no Topo */}
+      <div className="flex flex-col items-center text-center pt-8 pb-16 px-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-sm mb-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+          <span className="flex h-2 w-2 rounded-full bg-green-500"></span>
+          Rápido, simples e atualizado para {new Date().getFullYear()}
         </div>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 dark:text-slate-50 mb-6 tracking-tight leading-tight max-w-4xl">
+          {t('heroTitle')}
+        </h1>
+        <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl mb-12 max-w-2xl leading-relaxed">
+          {t('heroDesc')} Descubra exatamente quanto vai cair na sua conta e entenda cada desconto de forma transparente.
+        </p>
 
-        {/* Right: Form Card */}
-        <div className="w-full xl:w-[480px] bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700 p-6 md:p-8 shrink-0 relative z-10">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-50 mb-6">{t('appTitle')}</h2>
-          
-          <form onSubmit={handleCalculate} className="space-y-5">
-            <div className="grid grid-cols-2 gap-5">
-              <div className="space-y-1.5 col-span-2 sm:col-span-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-                  {t('grossSalary')} (€) <Info className="w-3 h-3 text-slate-400" />
+        {/* 2. Bloco Principal da Calculadora */}
+        <div className="w-full max-w-4xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 p-6 md:p-10 relative z-10 text-left">
+          <form onSubmit={handleCalculate} className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Salário Bruto */}
+              <div className="space-y-2 col-span-1 md:col-span-2">
+                <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                  {t('grossSalary')} <Info className="w-4 h-4 text-slate-400" />
                 </label>
-                <div className="relative">
-                  <input
-                    type="number"
-                    value={grossSalary}
-                    onChange={(e) => setGrossSalary(e.target.value)}
-                    className="w-full pl-3 pr-8 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-slate-100"
-                  />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">€</span>
+                <div className="flex flex-col lg:flex-row gap-4">
+                  <div className="relative flex items-center bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all flex-1">
+                    <span className="pl-6 text-slate-400 font-medium text-lg">€</span>
+                    <input
+                      type="number"
+                      value={grossSalary}
+                      onChange={(e) => setGrossSalary(e.target.value)}
+                      className="w-full pl-3 pr-6 py-4 bg-transparent outline-none text-slate-900 dark:text-slate-100 text-3xl font-bold placeholder-slate-300"
+                      placeholder="Ex: 50000"
+                    />
+                  </div>
+                  <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl w-full lg:w-auto h-[68px]">
+                    <button type="button" onClick={() => setPeriod('hour')} className={cn("flex-1 lg:px-6 py-2 text-sm font-semibold rounded-xl transition-colors", period === 'hour' ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300")}>{t('hourly')}</button>
+                    <button type="button" onClick={() => setPeriod('month')} className={cn("flex-1 lg:px-6 py-2 text-sm font-semibold rounded-xl transition-colors", period === 'month' ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300")}>{t('monthly')}</button>
+                    <button type="button" onClick={() => setPeriod('year')} className={cn("flex-1 lg:px-6 py-2 text-sm font-semibold rounded-xl transition-colors", period === 'year' ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm" : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300")}>{t('yearly')}</button>
+                  </div>
                 </div>
               </div>
-              <div className="space-y-1.5 col-span-2 sm:col-span-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">{t('period')}</label>
-                <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-lg">
-                  <button type="button" onClick={() => setPeriod('hour')} className={cn("flex-1 py-1.5 text-xs font-medium rounded-md transition-colors", period === 'hour' ? "bg-blue-600 text-white" : "text-slate-600 dark:text-slate-400")}>{t('hourly')}</button>
-                  <button type="button" onClick={() => setPeriod('month')} className={cn("flex-1 py-1.5 text-xs font-medium rounded-md transition-colors", period === 'month' ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 dark:text-slate-400")}>{t('monthly')}</button>
-                  <button type="button" onClick={() => setPeriod('year')} className={cn("flex-1 py-1.5 text-xs font-medium rounded-md transition-colors", period === 'year' ? "bg-blue-600 text-white" : "text-slate-600 dark:text-slate-400")}>{t('yearly')}</button>
+
+              {/* Classe de Imposto & Estado */}
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t('taxClass')}</label>
+                  <select value={taxClass} onChange={(e) => setTaxClass(e.target.value as TaxClass)} className="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer">
+                    <option value="I">{t('taxClass1')}</option>
+                    <option value="II">{t('taxClass2')}</option>
+                    <option value="III">{t('taxClass3')}</option>
+                    <option value="IV">{t('taxClass4')}</option>
+                    <option value="V">{t('taxClass5')}</option>
+                    <option value="VI">{t('taxClass6')}</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t('state')}</label>
+                  <select value={stateRegion} onChange={(e) => setStateRegion(e.target.value)} className="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer">
+                    {states.map(s => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              {/* Detalhes Adicionais */}
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t('maritalStatus')}</label>
+                    <select value={maritalStatus} onChange={(e) => setMaritalStatus(e.target.value as 'single'|'married')} className="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer">
+                      <option value="single">{t('single')}</option>
+                      <option value="married">{t('married')}</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t('childrenLabel')}</label>
+                    <input type="number" min="0" value={children} onChange={(e) => setChildren(parseInt(e.target.value)||0)} className="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 transition-all" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t('healthInsurance')}</label>
+                    <select value={healthInsurance} onChange={(e) => setHealthInsurance(e.target.value as HealthInsurance)} className="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer">
+                      <option value="public">{t('public')}</option>
+                      <option value="private">{t('private')}</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t('churchTaxLabel')}</label>
+                    <select value={churchTax ? 'yes' : 'no'} onChange={(e) => setChurchTax(e.target.value === 'yes')} className="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer">
+                      <option value="no">{t('churchTaxNo')}</option>
+                      <option value="yes">{t('churchTaxYes')}</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-5">
-              <div className="space-y-1.5 col-span-2 sm:col-span-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">{t('taxClass')} <Info className="w-3 h-3 text-slate-400" /></label>
-                <select value={taxClass} onChange={(e) => setTaxClass(e.target.value as TaxClass)} className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-700 dark:text-slate-300">
-                  <option value="I">{t('taxClass1')}</option>
-                  <option value="II">{t('taxClass2')}</option>
-                  <option value="III">{t('taxClass3')}</option>
-                  <option value="IV">{t('taxClass4')}</option>
-                  <option value="V">{t('taxClass5')}</option>
-                  <option value="VI">{t('taxClass6')}</option>
-                </select>
+            <div className="pt-4 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                <Lock className="w-4 h-4" /> Seus dados não são armazenados.
               </div>
-              <div className="space-y-1.5 col-span-2 sm:col-span-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">{t('state')} <Info className="w-3 h-3 text-slate-400" /></label>
-                <select value={stateRegion} onChange={(e) => setStateRegion(e.target.value)} className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-700 dark:text-slate-300">
-                  {states.map(s => <option key={s} value={s}>{s}</option>)}
-                </select>
-              </div>
+              <button type="submit" className="w-full md:w-auto px-10 py-4 bg-slate-900 hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-xl font-bold text-lg shadow-xl shadow-slate-900/20 dark:shadow-blue-900/20 transition-all flex items-center justify-center gap-3">
+                {t('calculateBtn')} <ArrowRight className="w-5 h-5" />
+              </button>
             </div>
-
-            <div className="grid grid-cols-2 gap-5">
-              <div className="space-y-1.5 col-span-2 sm:col-span-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">{t('maritalStatus')}</label>
-                <select value={maritalStatus} onChange={(e) => setMaritalStatus(e.target.value as 'single'|'married')} className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-700 dark:text-slate-300">
-                  <option value="single">{t('single')}</option>
-                  <option value="married">{t('married')}</option>
-                </select>
-              </div>
-              <div className="space-y-1.5 col-span-2 sm:col-span-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">{t('childrenLabel')} <Info className="w-3 h-3 text-slate-400" /></label>
-                <input type="number" min="0" value={children} onChange={(e) => setChildren(parseInt(e.target.value)||0)} className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-900 dark:text-slate-100" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-5">
-              <div className="space-y-1.5 col-span-2 sm:col-span-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">{t('healthInsurance')} <Info className="w-3 h-3 text-slate-400" /></label>
-                <select value={healthInsurance} onChange={(e) => setHealthInsurance(e.target.value as HealthInsurance)} className="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-700 dark:text-slate-300">
-                  <option value="public">{t('public')}</option>
-                  <option value="private">{t('private')}</option>
-                </select>
-              </div>
-              <div className="space-y-1.5 col-span-2 sm:col-span-1">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">{t('churchTaxLabel')} <Info className="w-3 h-3 text-slate-400" /></label>
-                <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-lg">
-                  <button type="button" onClick={() => setChurchTax(false)} className={cn("flex-1 py-1.5 text-sm font-medium rounded-md transition-colors", !churchTax ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 dark:text-slate-400")}>{t('churchTaxNo')}</button>
-                  <button type="button" onClick={() => setChurchTax(true)} className={cn("flex-1 py-1.5 text-sm font-medium rounded-md transition-colors", churchTax ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 dark:text-slate-400")}>{t('churchTaxYes')}</button>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-1.5 w-full sm:w-1/2 sm:pr-2.5">
-               <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">{t('ageLabel')}</label>
-               <div className="relative flex items-center">
-                 <input type="number" min="15" max="100" value={age} onChange={(e) => setAge(parseInt(e.target.value)||30)} className="w-full pl-3 pr-12 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-900 dark:text-slate-100" />
-                 <span className="absolute right-4 text-slate-400 text-sm">{t('ageYears')}</span>
-               </div>
-            </div>
-
-            <button type="submit" className="w-full py-4 mt-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-base shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2">
-              {t('calculateBtn')} <ArrowRight className="w-4 h-4" />
-            </button>
-            <p className="text-xs text-center text-slate-500 flex items-center justify-center gap-1.5 mt-4">
-              <Lock className="w-3 h-3" /> Seus dados não são armazenados ou compartilhados.
-            </p>
           </form>
         </div>
       </div>
 
-      {/* Results Section */}
-      <div ref={resultsRef} className="w-full mb-16" id="resultado">
+      {/* 3. Área de Resultados */}
+      <div ref={resultsRef} className="w-full max-w-5xl mx-auto mb-20 px-4" id="resultado">
         {result && (
           <div className="animate-in fade-in slide-in-from-bottom-8 duration-500">
-            
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-              <div className="flex items-center gap-3">
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">{t('resultTitle')}</h2>
-                <span className="px-3 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-xs font-bold rounded-full border border-green-200 dark:border-green-800">{t('calcDone')}</span>
-              </div>
-              <div className="flex gap-3 flex-wrap">
-                <a href="#comparar" className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800/50 rounded-lg text-sm font-semibold text-blue-700 dark:text-blue-400 shadow-sm hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
-                  {t('compareBtn')}
-                </a>
-                <button onClick={handleShare} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-                  <Share2 className="w-4 h-4" /> {t('shareBtn')}
-                </button>
-                <button onClick={handleDownload} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-                  <Download className="w-4 h-4" /> {t('downloadBtn')}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50">{t('resultTitle')}</h2>
+              <div className="flex gap-3">
+                <button onClick={handleDownload} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                  <Download className="w-4 h-4" /> PDF / TXT
                 </button>
               </div>
             </div>
 
-            {/* Top Stat Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-              <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
-                    <Euro className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                 </div>
-                 <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">{t('grossSalary')}</p>
-                    <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{formatMoney(result.gross)}</p>
-                 </div>
-              </div>
-              <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-full bg-red-50 dark:bg-red-900/30 flex items-center justify-center shrink-0">
-                    <FileText className="w-5 h-5 text-red-600 dark:text-red-400" />
-                 </div>
-                 <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">{t('totalTax')}</p>
-                    <p className="text-xl font-bold text-red-600 dark:text-red-400">{formatMoney(result.tax)}</p>
-                 </div>
-              </div>
-              <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center shrink-0">
-                    <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-                 </div>
-                 <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">{t('chartLabelPension')}</p>
-                    <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.pension)}</p>
-                 </div>
-              </div>
-              <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-full bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center shrink-0">
-                    <CheckCircle className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                 </div>
-                 <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">{t('chartLabelHealth')}</p>
-                    <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.health)}</p>
-                 </div>
+            {/* Resultado Principal em Destaque */}
+            <div className="bg-slate-900 dark:bg-slate-800 rounded-3xl p-8 md:p-12 text-white shadow-2xl mb-8 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500 opacity-20 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2"></div>
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div>
+                  <p className="text-blue-300 font-semibold mb-2 uppercase tracking-wider">{t('netSalary')}</p>
+                  <p className="text-5xl md:text-7xl font-extrabold tracking-tight">{formatMoney(result.net)}</p>
+                  <p className="text-slate-400 mt-2 text-lg">Por {period === 'month' ? 'mês' : period === 'year' ? 'ano' : 'hora'} líquido na sua conta</p>
+                </div>
+                <div className="flex flex-col gap-4 w-full md:w-auto">
+                  <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between gap-8 border border-white/10">
+                    <span className="text-slate-300 font-medium">{t('grossSalary')}</span>
+                    <span className="font-bold text-xl">{formatMoney(result.gross)}</span>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between gap-8 border border-white/10">
+                    <span className="text-slate-300 font-medium">{t('totalTax')}</span>
+                    <span className="font-bold text-xl text-red-300">-{formatMoney(result.tax + result.social)}</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Bottom Stat Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center shrink-0">
-                    <FileText className="w-5 h-5 text-slate-600 dark:text-slate-300" />
-                 </div>
-                 <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">{t('unemployment')}</p>
-                    <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.unemployment)}</p>
-                 </div>
-              </div>
-              <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-full bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center shrink-0">
-                    <ShieldAlert className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                 </div>
-                 <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">{t('careIns')}</p>
-                    <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.care)}</p>
-                 </div>
-              </div>
-              <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-green-500 shadow-md flex items-center gap-4 relative overflow-hidden lg:col-span-1">
-                 <div className="absolute top-0 right-0 w-16 h-16 bg-green-500 opacity-5 rounded-bl-full"></div>
-                 <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center shrink-0">
-                    <Calendar className="w-5 h-5 text-green-600 dark:text-green-400" />
-                 </div>
-                 <div>
-                    <p className="text-xs text-green-700 dark:text-green-400 font-bold uppercase tracking-wide">{t('netSalary')}</p>
-                    <p className="text-2xl font-extrabold text-green-600 dark:text-green-500">{formatMoney(result.net)}</p>
-                 </div>
-              </div>
-              <div className="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
-                 <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center shrink-0">
-                    <Clock className="w-5 h-5 text-slate-600 dark:text-slate-300" />
-                 </div>
-                 <div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">{t('hourly')}</p>
-                    <p className="text-xl font-bold text-slate-900 dark:text-slate-100">{formatMoney(result.hourlyRate)}</p>
-                 </div>
-              </div>
-            </div>
-
-            {/* Charts and Details */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Cards de Resumo & Gráfico */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               
-              {/* Pie Chart */}
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
-                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-6">{t('discountDetails')}</h3>
-                 <div className="h-64 relative w-full flex-1">
-                   <ResponsiveContainer width="100%" height="100%">
-                     <PieChart>
-                       <Pie data={getChartData()} cx="50%" cy="50%" innerRadius={70} outerRadius={95} paddingAngle={2} dataKey="value" stroke="none">
-                         {getChartData().map((entry, index) => (
-                           <Cell key={`cell-${index}`} fill={['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#64748b'][index % 6]} />
-                         ))}
-                       </Pie>
-                       <Tooltip formatter={(value: number) => formatMoney(value)} />
-                     </PieChart>
-                   </ResponsiveContainer>
-                   <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                     <span className="text-xs text-slate-400 font-medium">{t('totalDiscounts')}</span>
-                     <span className="font-bold text-slate-900 dark:text-slate-100">{formatMoney(result.tax + result.social)}</span>
-                   </div>
-                 </div>
+              {/* Tabela de Descontos Detalhada */}
+              <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 shadow-sm">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">{t('discountDetails')}</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+                    <span className="text-slate-600 dark:text-slate-400">{t('incomeTaxLabel')}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.incomeTax)}</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+                    <span className="text-slate-600 dark:text-slate-400">{t('chartLabelHealth')}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.health)}</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+                    <span className="text-slate-600 dark:text-slate-400">{t('chartLabelPension')}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.pension)}</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+                    <span className="text-slate-600 dark:text-slate-400">{t('unemployment')}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.unemployment)}</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
+                    <span className="text-slate-600 dark:text-slate-400">{t('careIns')}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{formatMoney(result.breakdown.care)}</span>
+                  </div>
+                  <div className="flex justify-between items-center pt-2">
+                    <span className="font-bold text-slate-900 dark:text-slate-100">Total Retido</span>
+                    <span className="font-bold text-red-500">{formatMoney(result.tax + result.social)}</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Bar Chart */}
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
-                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-6">{t('grossVsNet')}</h3>
-                 <div className="h-64 flex-1">
-                   <ResponsiveContainer width="100%" height="100%">
-                     <BarChart data={[{ name: 'Comparação', bruto: result.gross, liquido: result.net }]}>
-                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                       <XAxis dataKey="name" hide />
-                       <YAxis tickFormatter={(val) => `€${Math.round(val/1000)}k`} width={45} tick={{fontSize: 12, fill: '#64748b'}} axisLine={false} tickLine={false} />
-                       <Tooltip formatter={(value: number) => formatMoney(value)} cursor={{fill: 'transparent'}} />
-                       <Bar dataKey="bruto" name={t('grossChart')} fill="#3b82f6" radius={[4, 4, 0, 0]} maxBarSize={80} />
-                       <Bar dataKey="liquido" name={t('netChart')} fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={80} />
-                       <Legend verticalAlign="bottom" height={36} wrapperStyle={{fontSize: '12px', paddingTop: '10px'}} />
-                     </BarChart>
-                   </ResponsiveContainer>
-                 </div>
-              </div>
-
-              {/* Details Table */}
-              <div className="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
-                 <div className="flex items-center justify-between mb-4">
-                   <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">{t('discountDetails')}</h3>
-                   <Info className="w-4 h-4 text-slate-400" />
-                 </div>
-                 <div className="flex-1 overflow-y-auto pr-2 space-y-3 text-sm">
-                   <div className="flex justify-between pb-2 border-b border-slate-100 dark:border-slate-700">
-                     <span className="text-slate-500 font-medium">{t('description')}</span>
-                     <span className="text-slate-500 font-medium">{t('valueEur')}</span>
-                   </div>
-                   <div className="flex justify-between">
-                     <span className="text-slate-700 dark:text-slate-300">{t('incomeTaxLabel')}</span>
-                     <span className="font-semibold">{formatMoney(result.breakdown.incomeTax)}</span>
-                   </div>
-                   <div className="flex justify-between">
-                     <span className="text-slate-700 dark:text-slate-300">Solidaritätszuschlag</span>
-                     <span className="font-semibold">{formatMoney(result.breakdown.soli)}</span>
-                   </div>
-                   <div className="flex justify-between">
-                     <span className="text-slate-700 dark:text-slate-300">Kirchensteuer</span>
-                     <span className="font-semibold">{formatMoney(result.breakdown.church)}</span>
-                   </div>
-                   <div className="flex justify-between">
-                     <span className="text-slate-700 dark:text-slate-300">{t('chartLabelHealth')}</span>
-                     <span className="font-semibold">{formatMoney(result.breakdown.health)}</span>
-                   </div>
-                   <div className="flex justify-between">
-                     <span className="text-slate-700 dark:text-slate-300">{t('unemployment')}</span>
-                     <span className="font-semibold">{formatMoney(result.breakdown.unemployment)}</span>
-                   </div>
-                   <div className="flex justify-between">
-                     <span className="text-slate-700 dark:text-slate-300">{t('chartLabelPension')}</span>
-                     <span className="font-semibold">{formatMoney(result.breakdown.pension)}</span>
-                   </div>
-                   <div className="flex justify-between">
-                     <span className="text-slate-700 dark:text-slate-300">{t('careIns')}</span>
-                     <span className="font-semibold">{formatMoney(result.breakdown.care)}</span>
-                   </div>
-                   
-                   <div className="flex justify-between pt-3 mt-3 border-t border-slate-200 dark:border-slate-700">
-                     <span className="font-bold text-red-600 dark:text-red-400">{t('totalDiscounts')}</span>
-                     <span className="font-bold text-red-600 dark:text-red-400">{formatMoney(result.tax + result.social)}</span>
-                   </div>
-                   <div className="flex justify-between pt-2">
-                     <span className="font-bold text-green-600 dark:text-green-500">{t('netSalary')}</span>
-                     <span className="font-bold text-green-600 dark:text-green-500">{formatMoney(result.net)}</span>
-                   </div>
-                 </div>
+              {/* Gráfico Visual */}
+              <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6">Distribuição Visual</h3>
+                <div className="flex-1 min-h-[300px] relative">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie data={getChartData()} cx="50%" cy="50%" innerRadius={80} outerRadius={110} paddingAngle={2} dataKey="value" stroke="none">
+                        {getChartData().map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={['#0f172a', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#64748b'][index % 6]} />
+                        ))}
+                      </Pie>
+                      <Tooltip formatter={(value: number) => formatMoney(value)} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                     <span className="text-sm text-slate-500 font-medium">{t('netSalary')}</span>
+                     <span className="text-xl font-bold text-slate-900 dark:text-slate-100">{((result.net / result.gross) * 100).toFixed(1)}%</span>
+                  </div>
+                </div>
               </div>
 
             </div>
-
-            {/* Bottom info banners */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-               <div className="flex items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-                 <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center shrink-0">
-                   <Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                 </div>
-                 <div>
-                   <p className="font-bold text-slate-900 dark:text-slate-100 text-sm">{t('banner1Title')}</p>
-                   <p className="text-xs text-slate-500">{t('banner1Desc')}</p>
-                 </div>
+            
+            {/* 5. Seção de Confiança (mini FAQ / banners) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+               <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl">
+                 <ShieldAlert className="w-8 h-8 text-slate-700 dark:text-slate-300 mb-4" />
+                 <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">Cálculo Transparente</h4>
+                 <p className="text-sm text-slate-600 dark:text-slate-400">Usamos as fórmulas oficiais do Ministério das Finanças da Alemanha para garantir precisão.</p>
                </div>
-               <div className="flex items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-                 <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center shrink-0">
-                   <CheckCircle className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                 </div>
-                 <div>
-                   <p className="font-bold text-slate-900 dark:text-slate-100 text-sm">{t('banner2Title')}</p>
-                   <p className="text-xs text-slate-500">{t('banner2Desc')}</p>
-                 </div>
+               <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl">
+                 <CheckCircle className="w-8 h-8 text-slate-700 dark:text-slate-300 mb-4" />
+                 <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">Atualizado 2024</h4>
+                 <p className="text-sm text-slate-600 dark:text-slate-400">Todas as taxas, limites e subsídios estão atualizados para o ano fiscal vigente.</p>
                </div>
-               <div className="flex items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-                 <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center shrink-0">
-                   <Lock className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                 </div>
-                 <div>
-                   <p className="font-bold text-slate-900 dark:text-slate-100 text-sm">{t('banner3Title')}</p>
-                   <p className="text-xs text-slate-500">{t('banner3Desc')}</p>
-                 </div>
+               <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl">
+                 <Lock className="w-8 h-8 text-slate-700 dark:text-slate-300 mb-4" />
+                 <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-2">100% Privado</h4>
+                 <p className="text-sm text-slate-600 dark:text-slate-400">Seus dados salariais nunca saem do seu navegador. Não salvamos nenhuma informação.</p>
                </div>
             </div>
 

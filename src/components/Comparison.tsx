@@ -82,12 +82,12 @@ export const Comparison = () => {
   };
 
   const renderConfigurator = (scenario: ScenarioConfig, update: (key: keyof ScenarioConfig, val: any) => void, title: string, colorClass: string) => (
-    <div className={`p-5 rounded-2xl border ${colorClass} bg-white dark:bg-slate-800`}>
-      <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-slate-100">{title}</h3>
-      <div className="space-y-4">
-        <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Classe de Imposto</label>
-          <select value={scenario.taxClass} onChange={(e) => update('taxClass', e.target.value)} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-700 dark:text-slate-300">
+    <div className={`p-6 md:p-8 rounded-3xl border ${colorClass} bg-white dark:bg-slate-900 shadow-sm`}>
+      <h3 className="text-xl font-bold mb-6 text-slate-900 dark:text-slate-100">{title}</h3>
+      <div className="space-y-5">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Classe de Imposto</label>
+          <select value={scenario.taxClass} onChange={(e) => update('taxClass', e.target.value)} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500 cursor-pointer transition-all">
             <option value="I">I - Solteiro</option>
             <option value="II">II - Pai/Mãe solteiro</option>
             <option value="III">III - Casado (maior)</option>
@@ -96,20 +96,20 @@ export const Comparison = () => {
             <option value="VI">VI - Segundo emprego</option>
           </select>
         </div>
-        <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Estado</label>
-          <select value={scenario.stateRegion} onChange={(e) => update('stateRegion', e.target.value)} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-700 dark:text-slate-300">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Estado</label>
+          <select value={scenario.stateRegion} onChange={(e) => update('stateRegion', e.target.value)} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500 cursor-pointer transition-all">
             {states.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Filhos</label>
-            <input type="number" min="0" value={scenario.children} onChange={(e) => update('children', parseInt(e.target.value)||0)} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-900 dark:text-slate-100" />
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Filhos</label>
+            <input type="number" min="0" value={scenario.children} onChange={(e) => update('children', parseInt(e.target.value)||0)} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 transition-all" />
           </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Igreja?</label>
-            <select value={scenario.churchTax ? 'yes' : 'no'} onChange={(e) => update('churchTax', e.target.value === 'yes')} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm outline-none text-slate-700 dark:text-slate-300">
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Igreja?</label>
+            <select value={scenario.churchTax ? 'yes' : 'no'} onChange={(e) => update('churchTax', e.target.value === 'yes')} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-base outline-none text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500 cursor-pointer transition-all">
               <option value="no">Não</option>
               <option value="yes">Sim</option>
             </select>
@@ -120,64 +120,72 @@ export const Comparison = () => {
   );
 
   return (
-    <section id="comparar" className="w-full mt-16 p-6 sm:p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700">
-      <div className="mb-8">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-slate-900 dark:text-slate-50">Comparar Cenários</h2>
-        <p className="text-slate-600 dark:text-slate-400">
-          Descubra qual a diferença no seu salário líquido alterando sua Classe de Imposto (Steuerklasse), Estado ou número de filhos.
-        </p>
-      </div>
+    <div className="w-full max-w-6xl mx-auto">
+      <section id="comparar" className="w-full mt-8 p-8 md:p-12 bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-xl shadow-slate-200/40 dark:shadow-none border border-slate-100 dark:border-slate-800">
+        <div className="mb-10 text-center max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4 text-slate-900 dark:text-slate-50 tracking-tight">Comparar Cenários</h2>
+          <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+            Descubra qual a diferença no seu salário líquido alterando sua Classe de Imposto (Steuerklasse), Estado ou número de filhos.
+          </p>
+        </div>
 
-      {/* Shared Configuration */}
-      <div className="bg-slate-50 dark:bg-slate-900/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 mb-8">
-        <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 uppercase tracking-wider">Dados Básicos Compartilhados</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Salário bruto (€)</label>
-            <input
-              type="number"
-              value={grossSalary}
-              onChange={(e) => setGrossSalary(e.target.value)}
-              className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-slate-100"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Pagamento</label>
-            <div className="flex bg-white dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
-              <button onClick={() => setPeriod('hour')} className={cn("flex-1 py-1 text-xs font-medium rounded-md transition-colors", period === 'hour' ? "bg-blue-600 text-white" : "text-slate-600 dark:text-slate-400")}>Hora</button>
-              <button onClick={() => setPeriod('month')} className={cn("flex-1 py-1 text-xs font-medium rounded-md transition-colors", period === 'month' ? "bg-blue-600 text-white" : "text-slate-600 dark:text-slate-400")}>Mês</button>
-              <button onClick={() => setPeriod('year')} className={cn("flex-1 py-1 text-xs font-medium rounded-md transition-colors", period === 'year' ? "bg-blue-600 text-white" : "text-slate-600 dark:text-slate-400")}>Ano</button>
+        {/* Shared Configuration */}
+        <div className="bg-slate-50 dark:bg-slate-950 p-6 md:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 mb-10">
+          <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-6 uppercase tracking-wider flex items-center gap-2">
+            <Info className="w-4 h-4" /> Dados Básicos Compartilhados
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Salário bruto (€)</label>
+              <div className="relative flex items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 transition-all">
+                <span className="pl-4 text-slate-400 font-medium">€</span>
+                <input
+                  type="number"
+                  value={grossSalary}
+                  onChange={(e) => setGrossSalary(e.target.value)}
+                  className="w-full px-3 py-3 bg-transparent outline-none text-slate-900 dark:text-slate-100 font-bold"
+                />
+              </div>
             </div>
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Sua Idade</label>
-            <input type="number" value={age} onChange={(e) => setAge(parseInt(e.target.value)||30)} className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-slate-100" />
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Pagamento</label>
+              <div className="flex bg-white dark:bg-slate-900 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700 h-[50px]">
+                <button onClick={() => setPeriod('hour')} className={cn("flex-1 py-1 text-sm font-semibold rounded-lg transition-colors", period === 'hour' ? "bg-slate-900 dark:bg-slate-700 text-white" : "text-slate-600 dark:text-slate-400")}>Hora</button>
+                <button onClick={() => setPeriod('month')} className={cn("flex-1 py-1 text-sm font-semibold rounded-lg transition-colors", period === 'month' ? "bg-slate-900 dark:bg-slate-700 text-white" : "text-slate-600 dark:text-slate-400")}>Mês</button>
+                <button onClick={() => setPeriod('year')} className={cn("flex-1 py-1 text-sm font-semibold rounded-lg transition-colors", period === 'year' ? "bg-slate-900 dark:bg-slate-700 text-white" : "text-slate-600 dark:text-slate-400")}>Ano</button>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Sua Idade</label>
+              <input type="number" value={age} onChange={(e) => setAge(parseInt(e.target.value)||30)} className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-slate-100 h-[50px]" />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Scenarios Configuration */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        {renderConfigurator(scenarioA, updateScenarioA, 'Cenário A', 'border-blue-200 dark:border-blue-800')}
-        {renderConfigurator(scenarioB, updateScenarioB, 'Cenário B', 'border-purple-200 dark:border-purple-800')}
-      </div>
+        {/* Scenarios Configuration */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          {renderConfigurator(scenarioA, updateScenarioA, 'Cenário A', 'border-blue-200 dark:border-blue-800/50')}
+          {renderConfigurator(scenarioB, updateScenarioB, 'Cenário B', 'border-purple-200 dark:border-purple-800/50')}
+        </div>
 
-      {/* Results Comparison */}
-      {resultA && resultB && (
-        <div className="space-y-8 animate-in fade-in duration-500">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-2xl border border-blue-100 dark:border-blue-800/50 flex flex-col items-center text-center">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-2">Salário Líquido (A)</span>
-              <span className="text-4xl font-extrabold text-slate-900 dark:text-slate-50">{formatMoney(resultA.net)}</span>
+        {/* Results Comparison */}
+        {resultA && resultB && (
+          <div className="space-y-12 animate-in fade-in duration-500 border-t border-slate-100 dark:border-slate-800 pt-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-blue-50/50 dark:bg-blue-900/10 p-8 rounded-[2rem] border border-blue-100 dark:border-blue-800/30 flex flex-col items-center text-center shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500 opacity-5 blur-2xl rounded-full"></div>
+                <span className="text-sm font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-3">Salário Líquido (A)</span>
+                <span className="text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">{formatMoney(resultA.net)}</span>
+              </div>
+              <div className="bg-purple-50/50 dark:bg-purple-900/10 p-8 rounded-[2rem] border border-purple-100 dark:border-purple-800/30 flex flex-col items-center text-center shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-32 h-32 bg-purple-500 opacity-5 blur-2xl rounded-full"></div>
+                <span className="text-sm font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400 mb-3">Salário Líquido (B)</span>
+                <span className="text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">{formatMoney(resultB.net)}</span>
+              </div>
             </div>
-            <div className="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-2xl border border-purple-100 dark:border-purple-800/50 flex flex-col items-center text-center">
-              <span className="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-2">Salário Líquido (B)</span>
-              <span className="text-4xl font-extrabold text-slate-900 dark:text-slate-50">{formatMoney(resultB.net)}</span>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            {/* Chart */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+              {/* Chart */}
             <div className="bg-slate-50 dark:bg-slate-900/30 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 h-[320px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
@@ -261,5 +269,6 @@ export const Comparison = () => {
         </div>
       )}
     </section>
+    </div>
   );
 };
