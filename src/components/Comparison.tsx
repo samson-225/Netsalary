@@ -1,3 +1,4 @@
+import { useAppContext } from '../lib/i18n';
 import React, { useState, useMemo } from 'react';
 import { Info, ArrowRight, Euro, FileText, CheckCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
@@ -14,6 +15,7 @@ interface ScenarioConfig {
 }
 
 export const Comparison = () => {
+  const { t } = useAppContext();
   const [grossSalary, setGrossSalary] = useState<string>('4000');
   const [period, setPeriod] = useState<PaymentPeriod>('month');
   const [age, setAge] = useState<number>(30);
@@ -56,22 +58,22 @@ export const Comparison = () => {
     if (!resultA || !resultB) return [];
     return [
       {
-        name: 'Salário Líquido',
-        'Cenário A': resultA.net,
-        'Cenário B': resultB.net,
+        name: t('netSalary'),
+        [t('scenarioA')]: resultA.net,
+        [t('scenarioB')]: resultB.net,
       },
       {
-        name: 'Impostos',
-        'Cenário A': resultA.tax,
-        'Cenário B': resultB.tax,
+        name: t('chartLabelTax'),
+        [t('scenarioA')]: resultA.tax,
+        [t('scenarioB')]: resultB.tax,
       },
       {
-        name: 'Contrib. Sociais',
-        'Cenário A': resultA.social,
-        'Cenário B': resultB.social,
+        name: t('socialContributions'),
+        [t('scenarioA')]: resultA.social,
+        [t('scenarioB')]: resultB.social,
       }
     ];
-  }, [resultA, resultB]);
+  }, [resultA, resultB, t]);
 
   const updateScenarioA = (key: keyof ScenarioConfig, value: any) => {
     setScenarioA(prev => ({ ...prev, [key]: value }));
@@ -122,15 +124,15 @@ export const Comparison = () => {
   return (
     <div className="w-full max-w-6xl mx-auto">
       <section id="comparar" className="w-full mt-8 p-8 md:p-12 bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-xl shadow-slate-200/40 dark:shadow-none border border-slate-100 dark:border-slate-800">
-        <div className="mb-10 text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4 text-slate-900 dark:text-slate-50 tracking-tight">Comparar Cenários</h2>
+        <div className="mb-10 text-center max-w-2xl mx-auto print:hidden">
+          <h2 className="text-3xl sm:text-4xl font-display font-bold mb-4 text-slate-900 dark:text-slate-50 tracking-tight">{t('compareTitle')}</h2>
           <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
             Descubra qual a diferença no seu salário líquido alterando sua Classe de Imposto (Steuerklasse), Estado ou número de filhos.
           </p>
         </div>
 
         {/* Shared Configuration */}
-        <div className="bg-slate-50 dark:bg-slate-950 p-6 md:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 mb-10">
+        <div className="bg-slate-50 dark:bg-slate-950 p-6 md:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 mb-10 print:hidden">
           <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-6 uppercase tracking-wider flex items-center gap-2">
             <Info className="w-4 h-4" /> Dados Básicos Compartilhados
           </h3>
@@ -163,9 +165,9 @@ export const Comparison = () => {
         </div>
 
         {/* Scenarios Configuration */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {renderConfigurator(scenarioA, updateScenarioA, 'Cenário A', 'border-blue-200 dark:border-blue-800/50')}
-          {renderConfigurator(scenarioB, updateScenarioB, 'Cenário B', 'border-purple-200 dark:border-purple-800/50')}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 print:hidden">
+          {renderConfigurator(scenarioA, updateScenarioA, t('scenarioA'), 'border-blue-200 dark:border-blue-800/50')}
+          {renderConfigurator(scenarioB, updateScenarioB, t('scenarioB'), 'border-purple-200 dark:border-purple-800/50')}
         </div>
 
         {/* Results Comparison */}
@@ -186,16 +188,21 @@ export const Comparison = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Chart */}
-            <div className="bg-slate-50 dark:bg-slate-900/30 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 h-[320px]">
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm h-[400px]">
+              <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-6 uppercase tracking-wider">{t('graphComparison')}</h3>
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#cbd5e1" />
-                  <XAxis dataKey="name" tick={{ fontSize: 12, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                  <YAxis tickFormatter={(val) => `€${Math.round(val/1000)}k`} width={45} tick={{ fontSize: 12, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                  <Tooltip formatter={(value: number) => formatMoney(value)} cursor={{fill: 'transparent'}} />
-                  <Legend verticalAlign="bottom" wrapperStyle={{ paddingBottom: '0px' }} />
-                  <Bar dataKey="Cenário A" fill="#3b82f6" radius={[4, 4, 0, 0]} maxBarSize={50} />
-                  <Bar dataKey="Cenário B" fill="#a855f7" radius={[4, 4, 0, 0]} maxBarSize={50} />
+                <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" strokeOpacity={0.5} />
+                  <XAxis dataKey="name" tick={{ fontSize: 13, fill: '#64748b', fontWeight: 500 }} axisLine={false} tickLine={false} dy={10} />
+                  <YAxis tickFormatter={(val) => `€${Math.round(val/1000)}k`} tick={{ fontSize: 13, fill: '#64748b', fontWeight: 500 }} axisLine={false} tickLine={false} />
+                  <Tooltip 
+                    formatter={(value: number) => formatMoney(value)} 
+                    cursor={{fill: 'rgba(241, 245, 249, 0.5)'}}
+                    contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' }}
+                  />
+                  <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: '20px' }} iconType="circle" />
+                  <Bar dataKey={t('scenarioA')} fill="#3b82f6" radius={[6, 6, 0, 0]} maxBarSize={45} animationDuration={1500} />
+                  <Bar dataKey={t('scenarioB')} fill="#a855f7" radius={[6, 6, 0, 0]} maxBarSize={45} animationDuration={1500} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -206,8 +213,8 @@ export const Comparison = () => {
                 <thead className="bg-slate-100 dark:bg-slate-800/80">
                   <tr>
                     <th className="px-4 py-3 font-semibold text-slate-700 dark:text-slate-300">Comparativo</th>
-                    <th className="px-4 py-3 font-semibold text-blue-700 dark:text-blue-400 text-right">Cenário A</th>
-                    <th className="px-4 py-3 font-semibold text-purple-700 dark:text-purple-400 text-right">Cenário B</th>
+                    <th className="px-4 py-3 font-semibold text-blue-700 dark:text-blue-400 text-right">{t('scenarioA')}</th>
+                    <th className="px-4 py-3 font-semibold text-purple-700 dark:text-purple-400 text-right">{t('scenarioB')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-700 text-slate-600 dark:text-slate-400">
@@ -261,7 +268,7 @@ export const Comparison = () => {
               <div className="p-4 bg-slate-100/50 dark:bg-slate-800/50 flex justify-center border-t border-slate-200 dark:border-slate-700">
                 <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                   Diferença: <span className="font-bold text-slate-900 dark:text-slate-100">{formatMoney(Math.abs(resultA.net - resultB.net))}</span>
-                  {' '} a favor do Cenário {resultA.net > resultB.net ? 'A' : 'B'}
+                  {' '}  {t('inFavorOf')}  {resultA.net > resultB.net ? 'A' : 'B'}
                 </p>
               </div>
             </div>

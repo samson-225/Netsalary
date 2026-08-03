@@ -26,3 +26,16 @@
   font-family: var(--font-display);
 }
 
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print, aside, nav, button, header, footer {
+    display: none !important;
+  }
+  #resultado {
+    page-break-inside: avoid;
+  }
+}
+

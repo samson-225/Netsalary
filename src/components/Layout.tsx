@@ -31,21 +31,17 @@ export const Layout = () => {
 
   const sidebarLinks = [
     { to: "/", label: t('navCalculator'), icon: Calculator },
-    { to: "/#resultado", label: t('navResult'), icon: PieChart },
-    { to: "/#comparar", label: t('navCompare'), icon: ArrowLeftRight },
-    { to: "/#impostos", label: t('navTaxes'), icon: TaxIcon },
-    { to: "/#estados", label: t('navStates'), icon: Map },
-    { to: "/#blog", label: t('navBlog'), icon: BookOpen },
-    { to: "/#faq", label: t('navFaq'), icon: HelpCircle },
+    { to: "/comparar", label: t('navCompare'), icon: ArrowLeftRight },
+    { to: "/impostos", label: t('navTaxes'), icon: TaxIcon },
+    { to: "/faq", label: t('navFaq'), icon: HelpCircle },
     { to: "/about", label: t('navAbout'), icon: Info },
   ];
 
   const topNavLinks = [
     { label: t('navCalculator'), href: "/" },
-    { label: t('navCompare'), href: "/#comparar" },
-    { label: t('navTaxes'), href: "/#impostos" },
-    { label: t('navStates'), href: "/#estados" },
-    { label: t('navFaq'), href: "/#faq" },
+    { label: t('navCompare'), href: "/comparar" },
+    { label: t('navTaxes'), href: "/impostos" },
+    { label: t('navFaq'), href: "/faq" },
   ];
 
   return (

@@ -104,7 +104,7 @@ Data: ${new Date().toLocaleDateString()}
   return (
     <div className="w-full">
       {/* 1. Hero Section Forte no Topo */}
-      <div className="flex flex-col items-center text-center pt-8 pb-16 px-4">
+      <div className="flex flex-col items-center text-center pt-8 pb-16 px-4 print:hidden">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-sm mb-8 border border-slate-200 dark:border-slate-700 shadow-sm">
           <span className="flex h-2 w-2 rounded-full bg-green-500"></span>
           Rápido, simples e atualizado para {new Date().getFullYear()}

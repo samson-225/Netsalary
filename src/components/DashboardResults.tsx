@@ -12,6 +12,7 @@ import { CalculationResult, PaymentPeriod } from '../lib/salary';
 import { useAppContext } from '../lib/i18n';
 import { CountUp } from './CountUp';
 import { cn } from '../lib/utils';
+import { TipOfTheDay } from './TipOfTheDay';
 
 interface DashboardResultsProps {
   result: CalculationResult;
@@ -69,7 +70,14 @@ export const DashboardResults: React.FC<DashboardResultsProps> = ({ result, peri
   };
 
   const handlePrint = () => {
-    window.print();
+    try {
+      if (window.self !== window.top) {
+        alert(t('printWarning'));
+      }
+      window.print();
+    } catch (e) {
+      console.error("Print failed", e);
+    }
   };
 
   return (
@@ -97,7 +105,7 @@ export const DashboardResults: React.FC<DashboardResultsProps> = ({ result, peri
           </button>
           <button onClick={handlePrint} className="p-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors group relative">
             <Printer className="w-4 h-4" />
-            <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Imprimir</span>
+            <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">{t('printBtn')}</span>
           </button>
           <button onClick={onDownload} className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
             <Download className="w-4 h-4" /> <span className="hidden sm:inline">Exportar PDF</span>
@@ -354,6 +362,7 @@ export const DashboardResults: React.FC<DashboardResultsProps> = ({ result, peri
         </div>
       </motion.div>
 
+      <TipOfTheDay />
     </motion.div>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useAppContext } from '../lib/i18n';
 
 export const About = () => {
@@ -6,6 +7,10 @@ export const About = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto py-12 md:py-20 px-4">
+      <Helmet>
+        <title>Sobre Nós | Calculadora de Salário Líquido na Alemanha</title>
+        <meta name="description" content="Saiba mais sobre a nossa Calculadora de Salário Líquido na Alemanha. Somos uma ferramenta gratuita focada em ajudar profissionais e estudantes a entenderem seus rendimentos reais." />
+      </Helmet>
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50 mb-6 tracking-tight">
           {t('navAbout')}
